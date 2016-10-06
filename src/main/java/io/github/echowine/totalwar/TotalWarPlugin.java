@@ -111,6 +111,7 @@ public class TotalWarPlugin {
 			);
 			
 			Faction.ini();
+			Region.ini();
 			
 			this.registerCommands(event);
 			
@@ -133,6 +134,7 @@ public class TotalWarPlugin {
 			    .permission("totalwar")
 			    .description(Text.of("TotalWar - Commands"))
 			    .child(this.getFactionCommand(), "faction", "f")
+			    .child(this.getRegionCommand(), "region", "r")
 			    .build();
 
 		Sponge.getCommandManager().register(this, tw, "totalwar", "tw");
@@ -156,6 +158,28 @@ public class TotalWarPlugin {
 		return CommandSpec.builder()
 			    .permission("totalwar.faction")
 			    .description(Text.of("TotalWar - Manage factions"))
+			    .child(add, "add", "a")
+			    .build();
+		
+	}
+	
+	/**
+	 * Retrieve faction command
+	 * 
+	 * @return
+	 */
+	public CommandSpec getRegionCommand(){
+
+		CommandSpec add = CommandSpec.builder()
+			    .description(Text.of("TotalWar - Add a region"))
+			    .permission("totalwar.faction.add")
+			    .arguments(GenericArguments.string(Text.of("name")))
+			    .executor(new RegionAddCommand())
+			    .build();
+
+		return CommandSpec.builder()
+			    .permission("totalwar.faction")
+			    .description(Text.of("TotalWar - Manage regions"))
 			    .child(add, "add", "a")
 			    .build();
 		
